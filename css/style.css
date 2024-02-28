@@ -6,19 +6,16 @@
 	/* Clock colors */
 	--clockFace-color: hsl(0, 0%, 20%);
 	--clockBorder-color: hsl(0, 0%, 14%, 0.9);
-	--dialLine-mute-color: hsla(0, 0%, 98%, 0.15);
+	--dialLine-disable-color: hsla(0, 82%, 50%, 0.3);
+	--dialLine-mute-color: hsla(0, 0%, 90%, 0.3);
 	--dialLine-glow-color: hsla(0, 0%, 99%, 0.9);
 	--clock-size: 180px;
 }
 
 @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:300");
 
-body {
-	background-color: #000000;
-}
-
 .container {
-	padding: 12px 24px;
+	padding: 12px 22px;
 	background-color: var(--background-color);
 	height: 200px;
 	display: flex;
@@ -58,14 +55,17 @@ body {
 			position: absolute;
 			z-index: 10;
 			left: 50%;
-			transition: background-color 1s, box-shadow 1s;
 			transform-origin: 50% calc(var(--clock-size) / 2);
 			margin-left: -1px;
+			transition: background-color 1s, box-shadow 1s;
 			background-color: var(--dialLine-mute-color);
-		}
-		& .dial-line[data-glow="true"] {
-			background-color: var(--dialLine-glow-color);
-			box-shadow: 0 0 10px var(--dialLine-glow-color);
+			&[data-glow="glow"] {
+				background-color: var(--dialLine-glow-color);
+				box-shadow: 0 0 8px var(--dialLine-glow-color);
+			}
+			&[data-glow="disable"] {
+				background-color: var(--dialLine-disable-color);
+			}
 		}
 	}
 }
@@ -86,7 +86,7 @@ body {
 	background-color: rgba(100, 100, 100, 0.3);
 	border-top-left-radius: 50%;
 	border-bottom-left-radius: 50%;
-	width: 150px;
+	width: 100px;
 }
 
 .playPause {
