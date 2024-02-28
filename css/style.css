@@ -1,0 +1,110 @@
+:root {
+	/* App colors */
+	--background-color: #1f1f1f;
+	--font-primary: #f8f8f8;
+	--font-secondary: #181818;
+	/* Clock colors */
+	--clockFace-color: hsl(0, 0%, 20%);
+	--clockBorder-color: hsl(0, 0%, 14%, 0.9);
+	--dialLine-mute-color: hsla(0, 0%, 98%, 0.15);
+	--dialLine-glow-color: hsla(0, 0%, 99%, 0.9);
+	--clock-size: 180px;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:300");
+
+body {
+	background-color: #000000;
+}
+
+.container {
+	padding: 12px 24px;
+	background-color: var(--background-color);
+	height: 200px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.clock {
+	position: relative;
+	width: var(--clock-size);
+	height: var(--clock-size);
+	padding: 6px;
+	border-radius: 50%;
+	border: 4px solid var(--clockBorder-color);
+	background-color: var(--clockFace-color);
+	box-shadow: 12px -22px 30px hsla(0, 0%, 23%, 0.9),
+		-12px 28px 42px hsla(0, 0%, 0%, 0.9),
+		inset 1px -2px 1px hsla(0, 0%, 28%, 0.8),
+		inset -4px 8px 40px hsl(0, 0%, 0%, 0.9);
+
+	& .countdown {
+		position: absolute;
+		z-index: 20;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		color: var(--font-primary);
+		font-size: 68px;
+	}
+
+	& .dial-lines {
+		position: relative;
+
+		& .dial-line {
+			width: 2px;
+			height: 10px;
+			position: absolute;
+			z-index: 10;
+			left: 50%;
+			transition: background-color 1s, box-shadow 1s;
+			transform-origin: 50% calc(var(--clock-size) / 2);
+			margin-left: -1px;
+			background-color: var(--dialLine-mute-color);
+		}
+		& .dial-line[data-glow="true"] {
+			background-color: var(--dialLine-glow-color);
+			box-shadow: 0 0 10px var(--dialLine-glow-color);
+		}
+	}
+}
+
+.text {
+	color: var(--font-primary);
+	text-align: center;
+
+	& .mainText {
+		font-size: 5vw;
+	}
+	& .subText {
+		font-size: 3.5vw;
+	}
+}
+
+.actions-container {
+	background-color: rgba(100, 100, 100, 0.3);
+	border-top-left-radius: 50%;
+	border-bottom-left-radius: 50%;
+	width: 150px;
+}
+
+.playPause {
+	position: relative;
+	cursor: pointer;
+	background-color: gray;
+	border-radius: 50%;
+	width: 80px;
+	height: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&::before {
+		content: "";
+		position: absolute;
+		border-style: solid;
+		border-width: 20px 0 20px 35px;
+		border-color: transparent transparent transparent var(--font-secondary);
+	}
+}

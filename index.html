@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="alternate icon"
+			class="js-site-favicon"
+			type="image/png"
+			href="https://github.githubassets.com/favicons/favicon-dark.png"
+		/>
+		<title>Pomodoro Timer</title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script type="module" src="src/searchParamOptions.mjs"></script>
+		<script type="module" src="src/clockDialLines.mjs"></script>
+		<script type="module" src="src/clockDialLinesGlow.mjs"></script>
+		<script type="module" src="src/countDown.mjs"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="clock">
+				<div class="countdown">50:00</div>
+				<div class="dial-lines">
+					<div
+						class="dial-line"
+						data-glow="true"
+						style="transform: rotate(0deg)"
+					></div>
+				</div>
+			</div>
+
+			<div class="text">
+				<p class="mainText">
+					Pomo&nbsp;&nbsp;
+					<span class="session-min">0</span>
+					/
+					<span class="session-max">3</span>
+				</p>
+				<br />
+				<p class="subText">Break Time</p>
+			</div>
+
+			<div class="actions-container">
+				<div class="drawer-pull" onclick="toggleDrawer()"></div>
+				<div class="actions-drawer">
+					<div class="playPause" onclick="togglePlayPause"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
