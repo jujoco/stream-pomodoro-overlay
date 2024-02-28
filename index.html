@@ -13,21 +13,15 @@
 		<link rel="stylesheet" href="css/reset.css" />
 		<link rel="stylesheet" href="css/base.css" />
 		<link rel="stylesheet" href="css/style.css" />
-		<script type="module" src="src/searchParamOptions.mjs"></script>
 		<script type="module" src="src/clockDialLines.mjs"></script>
-		<script type="module" src="src/clockDialLinesGlow.mjs"></script>
 		<script type="module" src="src/countDown.mjs"></script>
 	</head>
 	<body>
 		<div class="container">
 			<div class="clock">
-				<div class="countdown">50:00</div>
+				<div class="countdown">00:00</div>
 				<div class="dial-lines">
-					<div
-						class="dial-line"
-						data-glow="true"
-						style="transform: rotate(0deg)"
-					></div>
+					<!-- dial-lines are rendered here -->
 				</div>
 			</div>
 
@@ -39,13 +33,13 @@
 					<span class="session-max">3</span>
 				</p>
 				<br />
-				<p class="subText">Break Time</p>
+				<p class="subText">Focus Time</p>
 			</div>
 
 			<div class="actions-container">
 				<div class="drawer-pull" onclick="toggleDrawer()"></div>
 				<div class="actions-drawer">
-					<div class="playPause" onclick="togglePlayPause"></div>
+					<div class="playPause" onclick="countdown.start()"></div>
 				</div>
 			</div>
 		</div>

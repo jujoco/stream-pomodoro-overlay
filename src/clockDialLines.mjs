@@ -1,12 +1,27 @@
-let clockEl = document.querySelector(".dial-lines");
-let fragmentLines = document.createDocumentFragment();
+/**
+ * @param {string} clockSelector
+ * @param {number} [lineQty=50]
+ */
+export const renderDialLines = (clockSelector, lineQty = 50) => {
+	let clockEl = document.querySelector(clockSelector);
+	let fragmentLines = document.createDocumentFragment();
 
-for (let i = 1; i < 60; i++) {
-	const line = document.createElement("div");
-	line.classList.add("dial-line");
-	line.dataset.glow = "false";
-	line.style.transform = `rotate( ${i * 6}deg )`;
-	fragmentLines.append(line);
-}
+	for (let i = 0; i < 60; i++) {
+		const line = document.createElement("div");
+		line.classList.add("dial-line");
+		line.style.transform = `rotate(${i * 6}deg)`;
+		line.dataset.glow = "mute";
 
-clockEl.appendChild(fragmentLines);
+		if (i < lineQty) {
+			setTimeout(() => {
+				line.dataset.glow = "glow";
+			}, 60000 * (i + 1)); // add glow ever minute
+		} else {
+			line.dataset.glow = "disable";
+		}
+
+		fragmentLines.append(line);
+	}
+
+	clockEl.appendChild(fragmentLines);
+};

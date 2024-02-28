@@ -1,121 +1,54 @@
-const secondsInaMinute = 60;
-const minutes_25 = secondsInaMinute * 25;
-const minutes_50 = secondsInaMinute * 50;
-const seconds_10 = 10; //for testing
+import { renderDialLines } from "./clockDialLines.mjs";
+import { paramMinutes } from "./searchParamOptions.mjs";
 
-let interval;
-let isPaused = true;
-let countdownWasStarted = false;
-let pomodoroDuration = minutes_50; //by default
-let timeLeftInSeconds = 0;
+class Countdown {
+	#secondsInMinute = 60;
+	#intervalId = null;
+	#seconds;
 
-// Button Handlers
-function updateDuration() {
-	//The pomodoro duration is by default 50, but we can change to 25!
-	if (pomodoroDuration == minutes_50) {
-		pomodoroDuration = minutes_25;
-	} else {
-		pomodoroDuration = minutes_50;
+	constructor(minutes, updateCallback, finishCallback) {
+		this.#seconds = minutes * this.#secondsInMinute;
+		this.finishCallback = finishCallback;
+		this.updateCallback = updateCallback;
+		renderDialLines(".dial-lines", minutes);
 	}
 
-	timeLeftInSeconds = pomodoroDuration;
-	updateTimeString();
-}
-
-function playPauseCountdown() {
-	isPaused = !isPaused;
-
-	updatePlayPauseButton();
-
-	if (!countdownWasStarted) {
-		//This function could be called after initiating the timer,
-		//so we need to differentiate when its start vs pause vs resume
-		resetCountdown();
-		updateTimeString();
+	start() {
+		this.#intervalId = setInterval(() => {
+			this.#tick();
+			this.updateCallback(this.getTime());
+		}, 1000);
 	}
 
-	countdownWasStarted = true;
-
-	if (isPaused) {
-		stopCountdown();
-	} else {
-		// Update the count down every 1 second
-		interval = setInterval(updateCountdown, 1000);
-	}
-}
-
-function restartCountdown() {
-	//When we reset the countdown, stop the interval and reset things back to normal
-	stopCountdown();
-	resetCountdown();
-
-	isPaused = true;
-	updatePlayPauseButton();
-	updateTimeString();
-}
-
-// Biz Logic
-function updateCountdown() {
-	if (isPaused) {
-		return;
+	stop() {
+		clearInterval(this.#intervalId);
+		this.#intervalId = null;
 	}
 
-	timeLeftInSeconds--;
+	reset(minutes) {
+		this.#seconds = minutes * this.#secondsInMinute;
+		this.updateCallback(this.getTime());
+	}
 
-	updateTimeString();
+	getTime() {
+		let minutes = Math.floor(this.#seconds / this.#secondsInMinute);
+		let seconds = this.#seconds % this.#secondsInMinute;
+		let secondsAsString = seconds < 10 ? "0" + seconds : seconds;
+		return minutes + ":" + secondsAsString;
+	}
 
-	if (timeLeftInSeconds == 0) {
-		playYoScott();
-		stopCountdown();
-		isPaused = true;
-		updatePlayPauseButton();
+	#tick() {
+		if (this.#seconds > 0) {
+			this.#seconds -= 1;
+		} else {
+			this.stop();
+			this.finishCallback();
+		}
 	}
 }
 
-function pauseCountdown() {
-	isPaused = !isPaused;
+window.countdown = new Countdown(paramMinutes, mountTime);
+
+function mountTime(time) {
+	document.querySelector(".countdown").innerHTML = time;
 }
-
-function stopCountdown() {
-	clearInterval(interval);
-}
-
-function resetCountdown() {
-	isPaused = false;
-	timeLeftInSeconds = pomodoroDuration;
-}
-
-// View Updates
-function updatePlayPauseButton() {
-	let playPauseImageSrc;
-	if (isPaused) {
-		playPauseImageSrc = "⏸️";
-	} else {
-		playPauseImageSrc = "▶️";
-	}
-	document.querySelector(".playPause").src = playPauseImageSrc;
-}
-function updateTimeString() {
-	let minutes = Math.floor(timeLeftInSeconds / secondsInaMinute);
-	let seconds = timeLeftInSeconds % secondsInaMinute;
-	let secondsString = "";
-
-	if (seconds < 10) {
-		secondsString = "0" + seconds;
-	} else {
-		secondsString = seconds;
-	}
-
-	// Output the result in an element with id="demo"
-	document.querySelector(".countdown").innerHTML =
-		minutes + ":" + secondsString;
-}
-
-function playYoScott() {
-	var yoScottAudio = document.getElementById("yoScottAudio");
-	yoScottAudio.play();
-
-	document.querySelector(".countdown").innerHTML = "YOO";
-}
-
-playPauseCountdown();
