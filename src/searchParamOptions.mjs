@@ -24,8 +24,8 @@ let paramBreak = parseInt(searchParams.get("break")) || defaultBreak;
 /** @type {number} paramSets */
 let paramSets = parseInt(searchParams.get("sets")) || defaultSets;
 
-/** @type {string} paramTheme */
 const parseTheme = searchParams.get("theme")?.toUpperCase();
+/** @type {string} paramTheme */
 const paramTheme = themeOptions[parseTheme] || defaultTheme;
 
 paramMinutes = paramMinutes < 1 || paramMinutes > 60 ? 50 : paramMinutes;
