@@ -1,0 +1,50 @@
+.clock {
+	position: relative;
+	width: var(--clock-size);
+	height: var(--clock-size);
+	padding: 6px;
+	border-radius: 50%;
+	border: 4px solid var(--clockBorder-color);
+	background-color: var(--clockFace-color);
+	box-shadow: 12px -12px 36px hsla(0, 0%, 23%, 0.9),
+		-12px 12px 36px hsla(0, 0%, 0%, 0.9),
+		inset 1px -2px 1px hsla(0, 0%, 28%, 0.7),
+		inset -4px 8px 16px hsla(0, 0%, 0%, 0.9);
+}
+
+.countdown {
+	position: absolute;
+	z-index: 20;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: var(--font-primary);
+	font-size: 68px;
+}
+
+.dial-lines {
+	position: relative;
+}
+
+.dial-line {
+	width: 3px;
+	height: 5px;
+	border-radius: 3px;
+	position: absolute;
+	z-index: 10;
+	left: 50%;
+	transform-origin: 50% calc(var(--clock-size) / 2);
+	margin-left: -1px;
+	transition: background-color 400ms, box-shadow 400ms, height 400ms;
+	background-color: var(--dialLine-mute-color);
+}
+
+.dial-line[data-glow="glow"] {
+	height: 10px;
+	background-color: var(--glow-color);
+	box-shadow: 0 0 12px var(--glow-color);
+}
+
+.dial-line[data-glow="disable"] {
+	background-color: var(--dialLine-disable-color);
+}

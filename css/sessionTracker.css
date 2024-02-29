@@ -1,0 +1,12 @@
+.text {
+	color: var(--font-primary);
+	text-align: center;
+}
+
+.mainText {
+	font-size: 5vw;
+}
+
+.subText {
+	font-size: 3.5vw;
+}
