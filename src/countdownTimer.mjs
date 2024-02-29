@@ -1,18 +1,19 @@
-import { paramMinutes } from "./searchParamOptions.mjs";
+import {
+	paramMinutes,
+	paramBreak,
+	paramSets,
+	paramTheme,
+} from "./searchParamOptions.mjs";
 
 class CountdownTimer {
 	#secondsInMinute = 60;
 	#tickIntervalId = null;
-	#glowIntervalId = null;
-	#initialMinutes;
 	#seconds;
 
-	constructor(minutes, updateCallback, finishCallback) {
-		this.#initialMinutes = minutes;
+	constructor(minutes = 50, updateCallback, finishCallback) {
 		this.#seconds = minutes * this.#secondsInMinute;
 		this.finishCallback = finishCallback;
 		this.updateCallback = updateCallback;
-		this.#renderDialLines();
 	}
 
 	start() {
@@ -25,14 +26,15 @@ class CountdownTimer {
 	stop() {
 		clearInterval(this.#tickIntervalId);
 		this.#tickIntervalId = null;
-		clearInterval(this.#glowIntervalId);
-		this.#glowIntervalId = null;
 	}
 
 	reset(minutes) {
 		this.#seconds = minutes * this.#secondsInMinute;
 		this.updateCallback(this.getTime());
-		this.#renderDialLines();
+	}
+
+	getSeconds() {
+		return this.#seconds;
 	}
 
 	getTime() {
@@ -46,14 +48,35 @@ class CountdownTimer {
 	#tick() {
 		if (this.#seconds > 0) {
 			this.#seconds -= 1;
-			// Check if a minute has passed
-			if (this.#seconds % 60 === 0) {
-				this.#updateDialLines();
-			}
 		} else {
 			this.stop();
 			this.finishCallback();
 		}
+	}
+}
+
+class PomodoroTimer extends CountdownTimer {
+	#minuteIntervalId = null;
+
+	constructor(minutes = 50, updateCallback, finishCallback) {
+		super(minutes, updateCallback, finishCallback);
+		this.minutes = minutes;
+		this.#renderDialLines();
+	}
+
+	start() {
+		super.start();
+		this.#minuteIntervalId = setInterval(() => {
+			// Check if a minute has passed
+			if (this.getSeconds() % 60 === 0) {
+				this.#updateDialLines();
+			}
+		}, 1000);
+	}
+
+	stop() {
+		super.stop();
+		clearInterval(this.#minuteIntervalId);
 	}
 
 	#renderDialLines() {
@@ -65,7 +88,7 @@ class CountdownTimer {
 			const line = document.createElement("div");
 			line.classList.add("dial-line");
 			line.style.transform = `rotate(${i * 6}deg)`;
-			line.dataset.glow = i < this.#initialMinutes ? "mute" : "disable";
+			line.dataset.glow = i < this.minutes ? "mute" : "disable";
 			fragmentLines.append(line);
 		}
 		dialContainer.appendChild(fragmentLines);
@@ -73,13 +96,21 @@ class CountdownTimer {
 
 	#updateDialLines() {
 		const dialLines = document.querySelectorAll(".dial-line");
-		const minutesPassed = this.#seconds / 60;
-		dialLines[this.#initialMinutes - minutesPassed - 1].dataset.glow = "glow";
+		const minutesPassed = this.getSeconds() / 60;
+		dialLines[this.minutes - minutesPassed - 1].dataset.glow = "glow";
 	}
 }
 
-window.countdown = new CountdownTimer(paramMinutes, mountTime, unmountTime);
-countdown.start();
+const timerOptions = {
+	minutes: paramMinutes,
+	break: paramBreak,
+	sets: paramSets,
+	theme: paramTheme,
+};
+
+window.pomodoroTimer = new PomodoroTimer(paramMinutes, mountTime, unmountTime);
+window.pomodoroTimer.start();
+
 function mountTime(time) {
 	document.querySelector(".countdown").innerHTML = time;
 }
