@@ -1,0 +1,7 @@
+.hidden {
+	display: none;
+}
+
+.justify-self-end {
+	justify-self: end;
+}

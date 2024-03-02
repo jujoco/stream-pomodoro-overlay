@@ -1,54 +1,212 @@
+@property --angle {
+	syntax: "<angle>";
+	inherits: false;
+	initial-value: 0deg;
+}
+
+@keyframes rotateAngle {
+	0% {
+		--angle: 0deg;
+	}
+	100% {
+		--angle: 360deg;
+	}
+}
+
 .app-container {
 	--border-width: 3px;
 
-	font-family: var(--font-family);
 	position: relative;
-	margin: var(--border-width);
-	padding: 12px 22px 14px;
-	min-height: 200px;
-	background-color: var(--background-color);
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
 	align-items: center;
+	margin: var(--border-width);
 	border-radius: var(--border-width);
+	padding: 12px 22px 14px;
+	height: 200px;
+	background-color: var(--background-color);
+	font-family: var(--font-family);
 }
 
 .app-container::before {
-	position: absolute;
 	content: "";
+	position: absolute;
 	z-index: -1;
 	top: calc(-1 * var(--border-width));
 	left: calc(-1 * var(--border-width));
+	border-radius: calc(2 * var(--border-width));
 	width: calc(100% + var(--border-width) * 2);
 	height: calc(100% + var(--border-width) * 2);
-	background: linear-gradient(
-		60deg,
-		hsl(224, 85%, 40%),
-		hsl(270, 85%, 40%),
-		hsl(314, 85%, 40%),
-		hsl(var(--hValue), 0%, 20%),
-		hsl(var(--hValue), 0%, 40%),
-		hsl(var(--hValue), 0%, 60%),
-		hsl(var(--hValue), 0%, 80%),
-		hsl(var(--hValue), 0%, 100%),
-		hsl(var(--hValue), 0%, 80%),
-		hsl(var(--hValue), 0%, 60%),
-		hsl(var(--hValue), 0%, 40%),
-		hsl(var(--hValue), 0%, 20%),
-		hsl(44, 85%, 40%),
-		hsl(89, 85%, 40%),
-		hsl(134, 85%, 40%),
-		hsl(179, 85%, 40%),
-		hsl(var(--hValue), 0%, 10%)
-	);
-	background-size: 300% 300%;
-	background-position: 0 50%;
-	border-radius: calc(2 * var(--border-width));
-	animation: moveGradient 4s alternate infinite;
+	animation: rotateAngle 4s linear infinite;
 }
 
-@keyframes moveGradient {
-	50% {
-		background-position: 100% 50%;
-	}
+.app-container.themeOFF::before {
+	background: conic-gradient(hsla(0, 0%, 20%, 0.9));
+}
+
+.app-container.themeWHITE::before {
+	background: conic-gradient(
+		from var(--angle),
+		hsla(0, 0%, 12%, 0.9),
+		hsla(0, 0%, 20%, 0.9),
+		hsla(0, 0%, 40%, 0.9),
+		hsla(0, 0%, 60%, 0.9),
+		hsla(0, 0%, 80%, 0.9),
+		hsla(0, 0%, 100%, 0.9),
+		hsla(0, 0%, 80%, 0.9),
+		hsla(0, 0%, 60%, 0.9),
+		hsla(0, 0%, 40%, 0.9),
+		hsla(0, 0%, 20%, 0.9),
+		hsla(0, 0%, 12%, 0.9)
+	);
+}
+
+.app-container.themeALL::before {
+	background: conic-gradient(
+		from var(--angle),
+		hsla(359, 100%, 50%, 0.9),
+		hsla(30, 100%, 50%, 0.9),
+		hsla(60, 100%, 50%, 0.9),
+		hsla(120, 100%, 50%, 0.9),
+		hsla(170, 100%, 50%, 0.9),
+		hsla(230, 100%, 50%, 0.9),
+		hsla(270, 100%, 50%, 0.9),
+		hsla(320, 100%, 50%, 0.9)
+	);
+}
+
+.app-container.themeRED::before {
+	background: conic-gradient(
+		from var(--angle),
+		hsla(0, 100%, 100%, 0.9),
+		hsla(0, 100%, 80%, 0.9),
+		hsla(0, 100%, 60%, 0.9),
+		hsla(0, 100%, 40%, 0.9),
+		hsla(0, 100%, 30%, 0.9),
+		hsla(0, 100%, 10%, 0.9),
+		hsla(0, 100%, 30%, 0.9),
+		hsla(0, 100%, 40%, 0.9),
+		hsla(0, 100%, 60%, 0.9),
+		hsla(0, 100%, 80%, 0.9),
+		hsla(0, 100%, 100%, 0.9)
+	);
+}
+
+.app-container.themeORANGE::before {
+	background: conic-gradient(
+		from var(--angle),
+		hsla(22, 100%, 100%, 0.9),
+		hsla(22, 100%, 80%, 0.9),
+		hsla(22, 100%, 60%, 0.9),
+		hsla(22, 100%, 40%, 0.9),
+		hsla(22, 100%, 30%, 0.9),
+		hsla(22, 100%, 20%, 0.9),
+		hsla(22, 100%, 30%, 0.9),
+		hsla(22, 100%, 40%, 0.9),
+		hsla(22, 100%, 60%, 0.9),
+		hsla(22, 100%, 80%, 0.9),
+		hsla(22, 100%, 100%, 0.9)
+	);
+}
+
+.app-container.themeYELLOW::before {
+	background: conic-gradient(
+		from var(--angle),
+		hsla(60, 100%, 100%, 0.9),
+		hsla(60, 100%, 80%, 0.9),
+		hsla(60, 100%, 60%, 0.9),
+		hsla(60, 100%, 40%, 0.9),
+		hsla(60, 100%, 30%, 0.9),
+		hsla(60, 100%, 20%, 0.9),
+		hsla(60, 100%, 30%, 0.9),
+		hsla(60, 100%, 40%, 0.9),
+		hsla(60, 100%, 60%, 0.9),
+		hsla(60, 100%, 80%, 0.9),
+		hsla(60, 100%, 100%, 0.9)
+	);
+}
+
+.app-container.themeGREEN::before {
+	background: conic-gradient(
+		from var(--angle),
+		hsla(120, 100%, 100%, 0.9),
+		hsla(120, 100%, 80%, 0.9),
+		hsla(120, 100%, 60%, 0.9),
+		hsla(120, 100%, 40%, 0.9),
+		hsla(120, 100%, 30%, 0.9),
+		hsla(120, 100%, 20%, 0.9),
+		hsla(120, 100%, 30%, 0.9),
+		hsla(120, 100%, 40%, 0.9),
+		hsla(120, 100%, 60%, 0.9),
+		hsla(120, 100%, 80%, 0.9),
+		hsla(120, 100%, 100%, 0.9)
+	);
+}
+
+.app-container.themeTEAL::before {
+	background: conic-gradient(
+		from var(--angle),
+		hsla(170, 100%, 100%, 0.9),
+		hsla(170, 100%, 80%, 0.9),
+		hsla(170, 100%, 60%, 0.9),
+		hsla(170, 100%, 40%, 0.9),
+		hsla(170, 100%, 30%, 0.9),
+		hsla(170, 100%, 20%, 0.9),
+		hsla(170, 100%, 30%, 0.9),
+		hsla(170, 100%, 40%, 0.9),
+		hsla(170, 100%, 60%, 0.9),
+		hsla(170, 100%, 80%, 0.9),
+		hsla(170, 100%, 100%, 0.9)
+	);
+}
+
+.app-container.themeBLUE::before {
+	background: conic-gradient(
+		from var(--angle),
+		hsla(220, 100%, 100%, 0.9),
+		hsla(220, 100%, 80%, 0.9),
+		hsla(220, 100%, 60%, 0.9),
+		hsla(220, 100%, 40%, 0.9),
+		hsla(220, 100%, 30%, 0.9),
+		hsla(220, 100%, 20%, 0.9),
+		hsla(220, 100%, 30%, 0.9),
+		hsla(220, 100%, 40%, 0.9),
+		hsla(220, 100%, 60%, 0.9),
+		hsla(220, 100%, 80%, 0.9),
+		hsla(220, 100%, 100%, 0.9)
+	);
+}
+
+.app-container.themePURPLE::before {
+	background: conic-gradient(
+		from var(--angle),
+		hsla(270, 100%, 100%, 0.9),
+		hsla(270, 100%, 80%, 0.9),
+		hsla(270, 100%, 60%, 0.9),
+		hsla(270, 100%, 40%, 0.9),
+		hsla(270, 100%, 30%, 0.9),
+		hsla(270, 100%, 20%, 0.9),
+		hsla(270, 100%, 30%, 0.9),
+		hsla(270, 100%, 40%, 0.9),
+		hsla(270, 100%, 60%, 0.9),
+		hsla(270, 100%, 80%, 0.9),
+		hsla(270, 100%, 100%, 0.9)
+	);
+}
+
+.app-container.themeMAGENTA::before {
+	background: conic-gradient(
+		from var(--angle),
+		hsla(320, 100%, 100%, 0.9),
+		hsla(320, 100%, 80%, 0.9),
+		hsla(320, 100%, 60%, 0.9),
+		hsla(320, 100%, 40%, 0.9),
+		hsla(320, 100%, 30%, 0.9),
+		hsla(320, 100%, 20%, 0.9),
+		hsla(320, 100%, 30%, 0.9),
+		hsla(320, 100%, 40%, 0.9),
+		hsla(320, 100%, 60%, 0.9),
+		hsla(320, 100%, 80%, 0.9),
+		hsla(320, 100%, 100%, 0.9)
+	);
 }
