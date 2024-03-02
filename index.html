@@ -12,6 +12,18 @@
 		/>
 		<link rel="stylesheet" href="css/index.css" />
 		<script type="module" src="src/index.js"></script>
+		<style>
+			.sr-only {
+				position: absolute;
+				width: 1px;
+				height: 1px;
+				margin: -1px;
+				padding: 0;
+				overflow: hidden;
+				clip: rect(0, 0, 0, 0);
+				border: 0;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="app-container">
@@ -33,11 +45,58 @@
 				<p class="subText">Focus Time</p>
 			</div>
 
-			<div class="actions-container">
-				<div class="drawer-pull" onclick="toggleDrawer()"></div>
-				<div class="actions-drawer">
-					<div class="playPause" onclick="countdown.start()"></div>
-				</div>
+			<div class="drawer-container justify-self-end">
+				<button id="playPauseButton" class="action">Play ▶️</button>
+
+				<button id="resetButton" class="action">Reset 🔄</button>
+
+				<label for="forcusTimeSelect"
+					>Focus Time
+					<select id="focusTimeSelect" class="action" name="focus">
+						<option>10</option>
+						<option>20</option>
+						<option>30</option>
+						<option>40</option>
+						<option>50</option>
+						<option>60</option>
+					</select>
+				</label>
+
+				<label for="theme"
+					>Theme
+					<select id="theme" class="action themeSelect" name="theme">
+						<option>Off</option>
+						<option>All</option>
+						<option>White</option>
+						<option>Red</option>
+						<option>Orange</option>
+						<option>Yellow</option>
+						<option>Green</option>
+						<option>Teal</option>
+						<option>Blue</option>
+						<option>Purple</option>
+						<option>Magenta</option>
+					</select>
+				</label>
+
+				<label for="breakTimeSelect"
+					>Break Time
+					<select id="breakTimeSelect" class="action" name="break">
+						<option>5</option>
+						<option>10</option>
+						<option>15</option>
+					</select>
+				</label>
+
+				<label for="sessionsSelect"
+					>Sessions
+					<select id="sessionsSelect" class="action" name="sessions">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+					</select>
+				</label>
 			</div>
 		</div>
 	</body>
