@@ -4,9 +4,8 @@
 	grid-gap: 10px;
 	justify-items: center;
 	position: fixed;
-	/* right: -170px; */
-	right: 0;
-	transition: right 2s linear;
+	right: -190px;
+	transition: right 270ms linear;
 	border: 2px outset hsl(0, 0%, 40%);
 	border-top-left-radius: 8%;
 	border-bottom-left-radius: 8%;
@@ -16,6 +15,75 @@
 		-12px 12px 36px hsla(0, 0%, 0%, 0.9),
 		inset 1px -2px 1px hsla(0, 0%, 28%, 0.7);
 	text-align: center;
+	justify-self: end;
+}
+.drawer-container[data-is-open="true"] {
+	right: 0;
+}
+.drawer-container-btn {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: -25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transform: translate(0%, -50%) scale(1);
+	border: 2px solid hsl(0, 0%, 38%);
+	border-radius: 50%;
+	height: 40px;
+	width: 40px;
+	background-color: var(--background-color);
+	cursor: pointer;
+}
+.drawer-container[data-is-open="true"] .drawer-container-btn {
+	transform: translate(0%, -50%) scale(-1);
+}
+.arrow {
+	display: inline-block;
+	transform: rotate(225deg);
+	border: 1px solid #fff;
+	border-bottom: 0;
+	border-left: 0;
+	margin-right: -2px;
+	height: 8px;
+	width: 8px;
+	background-color: transparent;
+}
+.drawer-container-btn:hover .arrow {
+	animation-name: arrowMovement;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+.drawer-container-btn:hover .arrow-1 {
+	animation-delay: 0ms;
+}
+.drawer-container-btn:hover .arrow-2 {
+	animation-delay: 180ms;
+}
+
+@keyframes arrowMovement {
+	0% {
+		opacity: 1;
+		transform: translateX(0) rotate(225deg);
+	}
+	25% {
+		opacity: 0;
+		transform: translateX(-10px) rotate(225deg);
+	}
+	50% {
+		opacity: 0;
+		transform: translateX(14px) rotate(225deg);
+	}
+	75% {
+		opacity: 1;
+		transform: translateX(0) rotate(225deg);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0) rotate(225deg);
+	}
 }
 
 .action {
