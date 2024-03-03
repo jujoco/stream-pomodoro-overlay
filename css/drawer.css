@@ -5,7 +5,7 @@
 	justify-items: center;
 	position: fixed;
 	right: -190px;
-	transition: right 270ms linear;
+	transition: right 200ms linear;
 	border: 2px outset hsl(0, 0%, 40%);
 	border-top-left-radius: 8%;
 	border-bottom-left-radius: 8%;

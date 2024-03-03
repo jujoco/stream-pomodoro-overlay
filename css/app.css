@@ -40,11 +40,11 @@
 	animation: rotateAngle 4s linear infinite;
 }
 
-.app-container.themeOFF::before {
+.app-container.OFF::before {
 	background: conic-gradient(hsla(0, 0%, 20%, 0.9));
 }
 
-.app-container.themeWHITE::before {
+.app-container.WHITE::before {
 	background: conic-gradient(
 		from var(--angle),
 		hsla(0, 0%, 12%, 0.9),
@@ -61,7 +61,7 @@
 	);
 }
 
-.app-container.themeALL::before {
+.app-container.ALL::before {
 	background: conic-gradient(
 		from var(--angle),
 		hsla(359, 100%, 50%, 0.9),
@@ -75,7 +75,7 @@
 	);
 }
 
-.app-container.themeRED::before {
+.app-container.RED::before {
 	background: conic-gradient(
 		from var(--angle),
 		hsla(0, 100%, 100%, 0.9),
@@ -92,7 +92,7 @@
 	);
 }
 
-.app-container.themeORANGE::before {
+.app-container.ORANGE::before {
 	background: conic-gradient(
 		from var(--angle),
 		hsla(22, 100%, 100%, 0.9),
@@ -109,7 +109,7 @@
 	);
 }
 
-.app-container.themeYELLOW::before {
+.app-container.YELLOW::before {
 	background: conic-gradient(
 		from var(--angle),
 		hsla(60, 100%, 100%, 0.9),
@@ -126,7 +126,7 @@
 	);
 }
 
-.app-container.themeGREEN::before {
+.app-container.GREEN::before {
 	background: conic-gradient(
 		from var(--angle),
 		hsla(120, 100%, 100%, 0.9),
@@ -143,7 +143,7 @@
 	);
 }
 
-.app-container.themeTEAL::before {
+.app-container.TEAL::before {
 	background: conic-gradient(
 		from var(--angle),
 		hsla(170, 100%, 100%, 0.9),
@@ -160,7 +160,7 @@
 	);
 }
 
-.app-container.themeBLUE::before {
+.app-container.BLUE::before {
 	background: conic-gradient(
 		from var(--angle),
 		hsla(220, 100%, 100%, 0.9),
@@ -177,7 +177,7 @@
 	);
 }
 
-.app-container.themePURPLE::before {
+.app-container.PURPLE::before {
 	background: conic-gradient(
 		from var(--angle),
 		hsla(270, 100%, 100%, 0.9),
@@ -194,7 +194,7 @@
 	);
 }
 
-.app-container.themeMAGENTA::before {
+.app-container.MAGENTA::before {
 	background: conic-gradient(
 		from var(--angle),
 		hsla(320, 100%, 100%, 0.9),

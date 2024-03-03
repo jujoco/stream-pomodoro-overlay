@@ -2,14 +2,42 @@ import { CountdownTimer } from "./countdownTimer.mjs";
 
 export class PomodoroTimer extends CountdownTimer {
 	#minuteIntervalId = null;
+	#statusOption = {
+		PLAYING: "PLAYING",
+		PAUSED: "PAUSED",
+	};
+	status = "PAUSED";
+	sessionsCount = 0;
 
-	constructor(minutes = 50, updateCallback, finishCallback) {
-		super(minutes, updateCallback, finishCallback);
-		this.minutes = minutes;
+	constructor(
+		updateCallback,
+		finishCallback,
+		options = {
+			minutes: 50,
+			break: 10,
+			sessions: 3,
+			theme: "ALL",
+		}
+	) {
+		super(options.minutes, updateCallback, finishCallback);
+		this.minutes = options.minutes;
+		this.break = options.break;
+		this.sessionsLimit = options.sessions;
+		this.updateCallback = updateCallback;
 		this.#renderDialLines();
 	}
 
-	start() {
+	togglePlayPause() {
+		if (this.status === this.#statusOption.PAUSED) {
+			this.status = this.#statusOption.PLAY;
+			this.play();
+		} else {
+			this.status = this.#statusOption.PAUSED;
+			this.pause();
+		}
+	}
+
+	play() {
 		super.start();
 		this.#minuteIntervalId = setInterval(() => {
 			// Check if a minute has passed
@@ -19,15 +47,19 @@ export class PomodoroTimer extends CountdownTimer {
 		}, 1000);
 	}
 
-	stop() {
+	pause() {
 		super.stop();
 		clearInterval(this.#minuteIntervalId);
+	}
+
+	reset() {
+		super.reset();
+		this.#renderDialLines();
 	}
 
 	#renderDialLines() {
 		const dialContainer = document.querySelector(".dial-lines");
 		const fragmentLines = document.createDocumentFragment();
-		dialContainer.innerHTML = "";
 
 		for (let i = 0; i < 60; i++) {
 			const line = document.createElement("div");
@@ -36,6 +68,8 @@ export class PomodoroTimer extends CountdownTimer {
 			line.dataset.glow = i < this.minutes ? "mute" : "disable";
 			fragmentLines.append(line);
 		}
+
+		dialContainer.innerHTML = "";
 		dialContainer.appendChild(fragmentLines);
 	}
 
