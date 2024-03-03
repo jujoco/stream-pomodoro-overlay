@@ -1,10 +1,12 @@
 export class CountdownTimer {
 	#secondsInMinute = 60;
 	#tickIntervalId = null;
+	#initialMinutes;
 	#seconds;
 
-	constructor(minutes = 50, updateCallback, finishCallback) {
+	constructor(minutes = 60, updateCallback, finishCallback) {
 		this.#seconds = minutes * this.#secondsInMinute;
+		this.#initialMinutes = minutes;
 		this.finishCallback = finishCallback;
 		this.updateCallback = updateCallback;
 	}
@@ -21,13 +23,9 @@ export class CountdownTimer {
 		this.#tickIntervalId = null;
 	}
 
-	reset(minutes) {
-		this.#seconds = minutes * this.#secondsInMinute;
+	reset() {
+		this.#seconds = this.#initialMinutes * this.#secondsInMinute;
 		this.updateCallback(this.getTime());
-	}
-
-	getSeconds() {
-		return this.#seconds;
 	}
 
 	getTime() {
@@ -36,6 +34,10 @@ export class CountdownTimer {
 		let secondsAsString = seconds < 10 ? "0" + seconds : seconds;
 		let minutesAsString = minutes < 10 ? "0" + minutes : minutes;
 		return minutesAsString + ":" + secondsAsString;
+	}
+
+	getSeconds() {
+		return this.#seconds;
 	}
 
 	#tick() {
