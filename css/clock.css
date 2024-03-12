@@ -42,7 +42,7 @@
 .dial-line[data-glow="glow"] {
 	height: 12px;
 	background-color: var(--glow-color);
-	box-shadow: 0 0 12px var(--glow-color);
+	box-shadow: 0 0 14px var(--glow-color);
 }
 
 .dial-line[data-glow="disable"] {
